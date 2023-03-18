@@ -1,0 +1,55 @@
+<p style="color: green"><%= notice %></p>
+<h1>Livros</h1>
+<p>
+  <strong>Title:</strong>
+  <%= @book.title %>
+</p>
+
+<p>
+  <strong>Isbn:</strong>
+  <%= @book.isbn %>
+</p>
+
+<p>
+  <strong>Author:</strong>
+  <%= @book.author.name %>
+</p>
+<hr>
+<h3>Montagens:</h3>
+
+<table class="table" >
+  <thead>
+  <tr>
+    <th>id</th>
+    <th>Peças</th>
+    <th>Fornecedor</th>
+    <th>Valor</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @assemblies.each do |assembly| %>
+    <tr>
+      <td><%= assembly.part_id%></td>
+      <td><%= assembly.part.name%></td>
+      <td><%= assembly.part.provider.name%></td>
+      <td><%= assembly.part.value%></td>
+    </tr>
+  <% end %>
+  <tr>
+    <th>Custo Total</th>
+    <td colspan="2"></td>
+    <td><strong><%= "R$ #{@book.parts.sum(:value)}" %></strong></td>
+  </tr>
+  </tbody>
+</table>
+<br>
+<p>
+  <strong>Total de Peças usadas na Montagem :</strong>
+  <%= @assemblies.count %>
+
+</p>
+
+
+<div>
+  <%= link_to "Voltar", books_path, class:"btn btn-primary" %>
+</div>

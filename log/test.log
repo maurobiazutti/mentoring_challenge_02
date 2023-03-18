@@ -1,0 +1,154 @@
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "accounts"[0m
+  [1m[35m (136.5ms)[0m  [1m[35mCREATE TABLE "accounts" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "account_number" varchar, "provider_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "digit" varchar)[0m
+  [1m[35m (122.5ms)[0m  [1m[35mCREATE INDEX "index_accounts_on_provider_id" ON "accounts" ("provider_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "assemblies"[0m
+  [1m[35m (121.7ms)[0m  [1m[35mCREATE TABLE "assemblies" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "book_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "part_id" integer NOT NULL)[0m
+  [1m[35m (122.4ms)[0m  [1m[35mCREATE INDEX "index_assemblies_on_book_id" ON "assemblies" ("book_id")[0m
+  [1m[35m (122.8ms)[0m  [1m[35mCREATE INDEX "index_assemblies_on_part_id" ON "assemblies" ("part_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "authors"[0m
+  [1m[35m (132.9ms)[0m  [1m[35mCREATE TABLE "authors" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "cpf" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "books"[0m
+  [1m[35m (132.8ms)[0m  [1m[35mCREATE TABLE "books" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar, "isbn" varchar, "author_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (171.9ms)[0m  [1m[35mCREATE INDEX "index_books_on_author_id" ON "books" ("author_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "parts"[0m
+  [1m[35m (132.0ms)[0m  [1m[35mCREATE TABLE "parts" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "value" integer, "provider_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (122.8ms)[0m  [1m[35mCREATE INDEX "index_parts_on_provider_id" ON "parts" ("provider_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "providers"[0m
+  [1m[35m (132.8ms)[0m  [1m[35mCREATE TABLE "providers" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "cnpj" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE TEMPORARY TABLE "aaccounts" ("id" integer NOT NULL PRIMARY KEY, "account_number" varchar DEFAULT NULL, "provider_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "digit" varchar DEFAULT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "tindex_aaccounts_on_provider_id" ON "aaccounts" ("provider_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[32mINSERT INTO "aaccounts" ("id","account_number","provider_id","created_at","updated_at","digit")
+                     SELECT "id","account_number","provider_id","created_at","updated_at","digit" FROM "accounts"[0m
+  [1m[35m (0.8ms)[0m  [1m[35mDROP TABLE "accounts"[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "accounts" ("id" integer NOT NULL PRIMARY KEY, "account_number" varchar DEFAULT NULL, "provider_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "digit" varchar DEFAULT NULL, CONSTRAINT "fk_rails_25523b481f"
+FOREIGN KEY ("provider_id")
+  REFERENCES "providers" ("id")
+)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_accounts_on_provider_id" ON "accounts" ("provider_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[32mINSERT INTO "accounts" ("id","account_number","provider_id","created_at","updated_at","digit")
+                     SELECT "id","account_number","provider_id","created_at","updated_at","digit" FROM "aaccounts"[0m
+  [1m[35m (0.4ms)[0m  [1m[35mDROP TABLE "aaccounts"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (98.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TEMPORARY TABLE "aassemblies" ("id" integer NOT NULL PRIMARY KEY, "book_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "part_id" integer NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "tindex_aassemblies_on_part_id" ON "aassemblies" ("part_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "tindex_aassemblies_on_book_id" ON "aassemblies" ("book_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[32mINSERT INTO "aassemblies" ("id","book_id","created_at","updated_at","part_id")
+                     SELECT "id","book_id","created_at","updated_at","part_id" FROM "assemblies"[0m
+  [1m[35m (0.7ms)[0m  [1m[35mDROP TABLE "assemblies"[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "assemblies" ("id" integer NOT NULL PRIMARY KEY, "book_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "part_id" integer NOT NULL, CONSTRAINT "fk_rails_17654114ac"
+FOREIGN KEY ("book_id")
+  REFERENCES "books" ("id")
+)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_assemblies_on_book_id" ON "assemblies" ("book_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_assemblies_on_part_id" ON "assemblies" ("part_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[32mINSERT INTO "assemblies" ("id","book_id","created_at","updated_at","part_id")
+                     SELECT "id","book_id","created_at","updated_at","part_id" FROM "aassemblies"[0m
+  [1m[35m (0.4ms)[0m  [1m[35mDROP TABLE "aassemblies"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (98.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TEMPORARY TABLE "aassemblies" ("id" integer NOT NULL PRIMARY KEY, "book_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "part_id" integer NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "tindex_aassemblies_on_part_id" ON "aassemblies" ("part_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "tindex_aassemblies_on_book_id" ON "aassemblies" ("book_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[32mINSERT INTO "aassemblies" ("id","book_id","created_at","updated_at","part_id")
+                     SELECT "id","book_id","created_at","updated_at","part_id" FROM "assemblies"[0m
+  [1m[35m (0.7ms)[0m  [1m[35mDROP TABLE "assemblies"[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "assemblies" ("id" integer NOT NULL PRIMARY KEY, "book_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "part_id" integer NOT NULL, CONSTRAINT "fk_rails_17654114ac"
+FOREIGN KEY ("book_id")
+  REFERENCES "books" ("id")
+, CONSTRAINT "fk_rails_d50c4a1fb6"
+FOREIGN KEY ("part_id")
+  REFERENCES "parts" ("id")
+)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_assemblies_on_book_id" ON "assemblies" ("book_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_assemblies_on_part_id" ON "assemblies" ("part_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[32mINSERT INTO "assemblies" ("id","book_id","created_at","updated_at","part_id")
+                     SELECT "id","book_id","created_at","updated_at","part_id" FROM "aassemblies"[0m
+  [1m[35m (0.5ms)[0m  [1m[35mDROP TABLE "aassemblies"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (99.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TEMPORARY TABLE "abooks" ("id" integer NOT NULL PRIMARY KEY, "title" varchar DEFAULT NULL, "isbn" varchar DEFAULT NULL, "author_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "tindex_abooks_on_author_id" ON "abooks" ("author_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[32mINSERT INTO "abooks" ("id","title","isbn","author_id","created_at","updated_at")
+                     SELECT "id","title","isbn","author_id","created_at","updated_at" FROM "books"[0m
+  [1m[35m (0.6ms)[0m  [1m[35mDROP TABLE "books"[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "books" ("id" integer NOT NULL PRIMARY KEY, "title" varchar DEFAULT NULL, "isbn" varchar DEFAULT NULL, "author_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_53d51ce16a"
+FOREIGN KEY ("author_id")
+  REFERENCES "authors" ("id")
+ ON DELETE CASCADE)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_books_on_author_id" ON "books" ("author_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[32mINSERT INTO "books" ("id","title","isbn","author_id","created_at","updated_at")
+                     SELECT "id","title","isbn","author_id","created_at","updated_at" FROM "abooks"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE "abooks"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (102.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TEMPORARY TABLE "aparts" ("id" integer NOT NULL PRIMARY KEY, "name" varchar DEFAULT NULL, "value" integer DEFAULT NULL, "provider_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "tindex_aparts_on_provider_id" ON "aparts" ("provider_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[32mINSERT INTO "aparts" ("id","name","value","provider_id","created_at","updated_at")
+                     SELECT "id","name","value","provider_id","created_at","updated_at" FROM "parts"[0m
+  [1m[35m (0.6ms)[0m  [1m[35mDROP TABLE "parts"[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "parts" ("id" integer NOT NULL PRIMARY KEY, "name" varchar DEFAULT NULL, "value" integer DEFAULT NULL, "provider_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_73b2fc4d42"
+FOREIGN KEY ("provider_id")
+  REFERENCES "providers" ("id")
+)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_parts_on_provider_id" ON "parts" ("provider_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[32mINSERT INTO "parts" ("id","name","value","provider_id","created_at","updated_at")
+                     SELECT "id","name","value","provider_id","created_at","updated_at" FROM "aparts"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE "aparts"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (102.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (133.1ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (104.9ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20230207190015)[0m
+  [1m[35m (98.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20221122202552),
+(20221122202641),
+(20221122203344),
+(20221122203434),
+(20221122203652),
+(20221122203951),
+(20230124142902),
+(20230207185009);
+
+[0m
+  [1m[35m (165.3ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.3ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "test"], ["created_at", "2023-02-16 20:52:13.968569"], ["updated_at", "2023-02-16 20:52:13.968569"]]
+  [1m[36mTRANSACTION (101.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "schema_sha1"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.5ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "schema_sha1"], ["value", "c1b429347ef78a89b4c4caddf04dd00487b93b28"], ["created_at", "2023-02-16 20:52:14.078064"], ["updated_at", "2023-02-16 20:52:14.078064"]]
+  [1m[36mTRANSACTION (101.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m

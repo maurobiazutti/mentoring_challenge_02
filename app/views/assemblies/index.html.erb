@@ -1,0 +1,45 @@
+<p style="color: green"><%= notice %></p>
+<div class="row justify-content-end">
+  <div class="col-9">
+    <%= form_with class:"row g-2", url:"/assemblies", method: :get do |form| %>
+      <div class="col-9">
+        <%= form.text_field :query, placeholder: 'Nome da Peça:', class:"form-control" %>
+      </div>
+      <div class="col-auto">
+        <%= form.submit "Pesquisar", class:"btn btn-secondary" %>
+      </div>
+    <%end%>
+  </div>
+</div>
+<hr>
+<div class="container">
+  <h1>Montagens</h1>
+  <%= link_to "Cadastrar Montagem", new_assembly_path, class:"btn btn-success"%>
+  <hr>
+  <div id="books">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">id</th>
+          <th scope="col">Peça</th>
+          <th scope="col">Titulo</th>
+          <th scope="col">Data</th>
+          <th scope="col">Editar</th>
+          <th scope="col">Excluir</th>
+        </tr>
+      </thead>
+      <tbody>
+      <% @assemblies.each do |as| %>
+        <tr>
+          <td><%=as.id%></td>
+          <td><%=as.part.name%></td>
+          <td><%=as.book.title%></td>
+          <td><%=as.created_at.strftime("%d/%m/%y")%></td>
+          <td><%=link_to "Editar", edit_assembly_path(as), class:"btn btn-primary"%></td>
+          <td><%=button_to "Excluir", as, method: :delete, class:"btn btn-danger"%></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

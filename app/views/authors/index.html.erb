@@ -1,0 +1,32 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Autores</h1>
+<hr>
+<%= link_to "Cadastrar Autor", new_author_path, class:"btn btn-success" %>
+<hr>
+<table class="table table-bordered" >
+  <thead>
+  <tr>
+    <th scope="col">Nome</th>
+    <th scope="col">CPF</th>
+    <th scope="col">Detalhes</th>
+    <th scope="col">Editar</th>
+    <th scope="col">Excluir</th>
+  </tr>
+  </thead>
+  <tbody>
+    <%@authors.each do |a| %>
+      <tr>
+        <td><%=a.name %></td>
+        <td><%=a.cpf %></td>
+        <td><%=link_to "Detalhes", a, class:"btn btn-primary"%></td>
+        <td><%=link_to "Editar", edit_author_path(a), class:"btn btn-secondary"%></td>
+        <td><%=button_to "Excluir", a, method: :delete, class:"btn btn-danger"%></td>
+      </tr>
+    <%end%>
+  </tbody>
+</table>
+
+
+
+

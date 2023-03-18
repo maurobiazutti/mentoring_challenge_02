@@ -1,0 +1,51 @@
+<div class="container">
+  <p style="color: green"><%= notice %></p>
+  <h1>Autor</h1>
+
+  <p>
+    <strong>Id:</strong>
+    <%= @author.id %>
+  </p>
+
+  <p>
+    <strong>Name:</strong>
+    <%= @author.name %>
+  </p>
+
+  <p>
+    <strong>Cpf:</strong>
+    <%= @author.cpf %>
+  </p>
+
+  <hr>
+
+  <h3>Livros do Autor:</h3>
+
+  <table class="table" >
+    <thead>
+    <tr>
+      <th>Id</th>
+      <th>Titúlos</th>
+      <th>ISBN</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @books.each do |book| %>
+      <tr>
+        <td><%= book.id %></td>
+        <td><%= book.title %></td>
+        <td><%= book.isbn %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+  <br>
+  <p>
+    <strong>Quantidade de Livros Publicados:</strong>
+    <%= @books.count %>
+  </p>
+
+
+  <%= link_to "Voltar", authors_path, class:"btn btn-primary"%>
+
+</div>

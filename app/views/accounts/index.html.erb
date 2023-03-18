@@ -1,0 +1,28 @@
+<p style="color: green"><%= notice %></p>
+<div class="row justify-content-end">
+  <div class="col-9">
+    <%= form_with class:"row g-2", url:"/accounts", method: :get do |form| %>
+      <div class="col-9">
+        <%= form.text_field :query, placeholder: 'Numero da Conta:', class:"form-control" %>
+      </div>
+      <div class="col-auto">
+        <%= form.submit "Pesquisar", class:"btn btn-secondary" %>
+      </div>
+    <%end%>
+  </div>
+</div>
+<hr>
+<div class="container">
+  <h1>Contas</h1>
+  <%= link_to "Cadastrar Conta", new_account_path, class:"btn btn-success" %>
+  <hr>
+  <div id="accounts">
+    <% @accounts.each do |account| %>
+      <%= render account %>
+      <p>
+        <%= link_to "Show this account", account, class:"btn btn-primary" %>
+      </p>
+      <hr>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,43 @@
+<p style="color: green"><%= notice %></p>
+<div class="row justify-content-end">
+  <div class="col-9">
+    <%= form_with class:"row g-2", url:"/books", method: :get do |form| %>
+      <div class="col-9">
+        <%= form.text_field :query, placeholder: 'Pesquise por Titúlo ou Autor:', class:"form-control" %>
+      </div>
+      <div class="col-auto">
+        <%= form.submit "Pesquisar", class:"btn btn-secondary" %>
+      </div>
+    <%end%>
+  </div>
+</div>
+<hr>
+<div class="container">
+  <h1>Livros</h1>
+  <%= link_to "Cadastrar Livro", new_book_path, class:"btn btn-success" %>
+  <hr>
+  <table class="table table-bordered" >
+    <thead>
+      <tr>
+        <th scope="col">Titúlo</th>
+        <th scope="col">Autor</th>
+        <th scope="col">ISBN</th>
+        <th scope="col">Detalhes</th>
+        <th scope="col">Editar</th>
+        <th scope="col">Excluir</th>
+      </tr>
+    </thead>
+    <tbody>
+    <%@books.each do |a| %>
+      <tr>
+        <td><%=a.title %></td>
+        <td><%=a.author.name %></td>
+        <td><%=a.isbn %></td>
+        <td><%=link_to "Detalhes", a, class:"btn btn-primary"%></td>
+        <td><%=link_to "Editar", edit_book_path(a), class:"btn btn-secondary"%></td>
+        <td><%=button_to "Excluir", a, method: :delete, class:"btn btn-danger"%></td>
+      </tr>
+    <%end%>
+    </tbody>
+  </table>
+</div>

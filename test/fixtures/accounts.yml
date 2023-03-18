@@ -1,0 +1,9 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  digito_verificado: MyString
+  provider: one
+
+two:
+  digito_verificado: MyString
+  provider: two
